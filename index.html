@@ -1,1 +1,659 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStoreID - Jual Beli Akun Game</title>
+    <style>
+        /* Style dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigasi */
+        header {
+            background: linear-gradient(135deg, #0066cc, #003366);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background: url('https://placeholder-image-service.onrender.com/image/1200x400?prompt=gaming%20background%20with%20game%20characters%20and%20controllers&id=hero1') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            font-size: 2rem;
+            color: #003366;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #ffcc00;
+            margin: 0.5rem auto;
+        }
+        
+        /* Kategori Game */
+        .game-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 180px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .category h3 {
+            text-align: center;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+        
+        /* Produk Akun Game */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #0066cc;
+            font-size: 1.2rem;
+        }
+        
+        .btn-buy {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-buy:hover {
+            background-color: #0052a3;
+        }
+        
+        /* Keunggulan */
+        .advantages {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .advantage {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .advantage i {
+            font-size: 2.5rem;
+            color: #0066cc;
+            margin-bottom: 1rem;
+        }
+        
+        .advantage h3 {
+            margin-bottom: 1rem;
+            color: #003366;
+        }
+        
+        /* Testimoni */
+        .testimonials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .testimonial {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial .customer {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial .customer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #ffcc00;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ZAROSTORE.ID</div>
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#produk">Produk</a></li>
+                    <li><a href="#tentang">Tentang Kami</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h1>Toko Akun Game Terlengkap dan Terpercaya</h1>
+            <p>Dapatkan akun game premium dengan harga terjangkau dan proses cepat</p>
+            <a href="#produk" class="btn">Lihat Katalog</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Kategori Game -->
+        <h2 class="section-title">Kategori Game</h2>
+        <div class="game-categories">
+            <div class="category">
+                <img src="https://i.pinimg.com/1200x/6a/0f/a6/6a0fa6fc37d7adbc8e41dfa7b0f849a8.jpg" alt="Logo Game Mobile Legends dan PUBG Mobile">
+                <h3>Mobile Games</h3>
+            </div>
+            <div class="category">
+                <img src="https://i.pinimg.com/736x/b5/2d/d4/b52dd471b0dc6244e430f829eff3df95.jpg" alt="Logo Game PUBG PC dan GTA V">
+                <h3>PC Games</h3>
+            </div>
+            <div class="category">
+                <img src="https://i.pinimg.com/736x/69/98/31/6998318fe3d8da953cfabcdf2e2a2995.jpg" alt="Logo Game PlayStation dan Xbox">
+                <h3>Console Games</h3>
+            </div>
+            <div class="category">
+                <img src="https://i.pinimg.com/736x/cd/46/86/cd46868fc84c9c1fd5927fe0e1a3eadd.jpg" alt="Turnamen Esports dengan Pemain Profesional">
+                <h3>Esports</h3>
+            </div>
+        </div>
+
+        <!-- Produk Akun Game -->
+        <h2 class="section-title" id="produk">Akun Game Populer</h2>
+        <div class="products">
+            <div class="product">
+                <img src="https://i.postimg.cc/hvjGzNR4/g1.jpg" alt="Karakter Mobile Legends dengan antarmuka game">
+                <div class="product-info">
+                    <h3>Akun Mobile Legends</h3>
+                    <p>Akun ML dengan 100+ skin, semua hero unlocked, dan mythic rank.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 250.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product">
+                <img src="https://i.postimg.cc/VvDb2jmv/g6.jpg" alt="Gameplay PUBG Mobile dengan pemain di medan perang">
+                <div class="product-info">
+                    <h3>Akun PUBG Mobile</h3>
+                    <p>Akun PUBG level max, banyak skin senjata langka dan UC balance.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 300.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product">
+                <img src="https://i.postimg.cc/HLX8TGdf/g4.jpg" alt="Karakter anime Genshin Impact di dunia fantasi">
+                <div class="product-info">
+                    <h3>Akun Genshin Impact</h3>
+                    <p>Akun AR55+ dengan multiple 5-star characters dan weapons.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 450.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product">
+                <img src="https://i.postimg.cc/FHfJndqF/g5.jpg" alt="Karakter Free Fire dengan berbagai skin dan senjata">
+                <div class="product-info">
+                    <h3>Akun Free Fire</h3>
+                    <p>Akun dengan banyak diamond, skin karakter langka, dan emote exclusive.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 200.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product">
+                <img src="https://i.postimg.cc/xjtJf3VT/g3.jpg" alt="Agen Valorant dengan senjata di map permainan">
+                <div class="product-info">
+                    <h3>Akun Valorant</h3>
+                    <p>Akun dengan semua agent unlocked, premium skins, dan high rank.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 350.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product">
+                <img src="https://i.postimg.cc/SK6RwWG4/g2.jpg" alt="Aksi tembak-menembak Call of Duty Mobile">
+                <div class="product-info">
+                    <h3>Akun Call of Duty Mobile</h3>
+                    <p>Akun dengan legendary weapons, character skins, dan battle pass completed.</p>
+                    <div class="product-price">
+                        <span class="price">Rp 280.000</span>
+                        <button class="btn-buy">Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keunggulan -->
+        <h2 class="section-title">Keunggulan Kami</h2>
+        <div class="advantages">
+            <div class="advantage">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Aman dan Terpercaya</h3>
+                <p>Seluruh akun dijamin aman, original, dan sudah melalui proses verifikasi ketat.</p>
+            </div>
+            
+            <div class="advantage">
+                <i class="fas fa-bolt"></i>
+                <h3>Proses Cepat</h3>
+                <p>Pembelian akun diproses secara instan, Anda bisa langsung bermain dalam hitungan menit.</p>
+            </div>
+            
+            <div class="advantage">
+                <i class="fas fa-headset"></i>
+                <h3>Customer Service 24/7</h3>
+                <p>Tim support siap membantu Anda kapanpun selama 24 jam sehari, 7 hari seminggu.</p>
+            </div>
+            
+            <div class="advantage">
+                <i class="fas fa-medal"></i>
+                <h3>Kualitas Terjamin</h3>
+                <p>Semua akun yang kami jual memiliki kualitas premium dan sesuai dengan deskripsi.</p>
+            </div>
+        </div>
+
+        <!-- Testimoni -->
+        <h2 class="section-title">Testimoni Pelanggan</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>"Proses pembeliannya sangat cepat, akun ML yang saya beli benar-benar sesuai deskripsi. Recommended banget!"</p>
+                <div class="customer">
+                    <img src="https://placeholder-image-service.onrender.com/image/50x50?prompt=portrait%20of%20a%20young%20indonesian%20man%20smiling&id=customer1" alt="Foto profil pelanggan pria Indonesia">
+                    <div>
+                        <strong>Rudi Hermawan</strong>
+                        <p>Pengguna Akun Mobile Legends</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <p>"CS-nya ramah dan sangat membantu. Akun PUBG yang saya beli banyak skin langka dan harganya worth it!"</p>
+                <div class="customer">
+                    <img src="https://placeholder-image-service.onrender.com/image/50x50?prompt=portrait%20of%20a%20young%20indonesian%20woman%20smiling&id=customer2" alt="Foto profil pelanggan wanita Indonesia">
+                    <div>
+                        <strong>Sinta Nurhaliza</strong>
+                        <p>Pengguna Akun PUBG Mobile</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial">
+                <p>"Baru pertama kali beli akun game online dan ternyata prosesnya mudah sekali. Bakal beli lagi lain waktu!"</p>
+                <div class="customer">
+                    <img src="https://placeholder-image-service.onrender.com/image/50x50?prompt=portrait%20of%20a%20teenage%20indonesian%20boy%20smiling&id=customer3" alt="Foto profil pelanggan remaja Indonesia">
+                    <div>
+                        <strong>Dika Pratama</strong>
+                        <p>Pengguna Akun Genshin Impact</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang GameStoreID</h3>
+                <p>Platform terpercaya untuk jual beli akun game premium dengan jaminan keamanan dan kualitas terbaik.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Link Cepat</h3>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#produk">Produk</a></li>
+                    <li><a href="#tentang">Tentang Kami</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Kontak Kami</h3>
+                <p><i class="fas fa-envelope"></i> info@gamestoreid.com</p>
+                <p><i class="fas fa-phone"></i> +62 812-3456-7890</p>
+                <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 GameStoreID. Seluruh Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript untuk interaksi tombol beli
+        document.querySelectorAll('.btn-buy').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product').querySelector('h3').textContent;
+                alert(`Terima kasih! Anda akan membeli: ${productName}\nSilakan lanjutkan pembayaran melalui WhatsApp Customer Service kami.`);
+            });
+        });
+    </script>
+</body>
+</html>
