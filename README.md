@@ -1,0 +1,2 @@
+# ZAROSTORE.ID
+.
